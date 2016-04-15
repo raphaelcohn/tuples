@@ -37,10 +37,15 @@ public class Pair<A, B> extends AbstractList<Object> implements Entry<A, B>
 	@SuppressWarnings({"StandardVariableNames", "WeakerAccess"}) @NotNull public final B b;
 
 	@SuppressWarnings("StandardVariableNames")
-	public Pair(@NotNull final A a, @NotNull final B b)
+	public Pair(@NonNls @NotNull final A a, @NonNls @NotNull final B b)
 	{
 		this.a = a;
 		this.b = b;
+	}
+
+	public Pair(@NotNull final Entry<A, B> entry)
+	{
+		this(entry.getKey(), entry.getValue());
 	}
 
 	@NotNull
@@ -80,7 +85,6 @@ public class Pair<A, B> extends AbstractList<Object> implements Entry<A, B>
 		return result;
 	}
 
-	@SuppressWarnings("CollectionDeclaredAsConcreteClass")
 	@NotNull
 	public ArrayList<? super Object> toArrayList()
 	{
@@ -142,5 +146,13 @@ public class Pair<A, B> extends AbstractList<Object> implements Entry<A, B>
 	public final B setValue(@NotNull final B value)
 	{
 		throw new UnsupportedOperationException("Can not mutate a pair");
+	}
+
+	public final void putOnce(@NotNull final Map<A, B> map)
+	{
+		if (map.putIfAbsent(a, b) != null)
+		{
+			throw new IllegalArgumentException("Already present in map");
+		}
 	}
 }

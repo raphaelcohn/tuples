@@ -75,7 +75,6 @@ public class Triplet<A, B, C> extends Pair<A, B>
 		return super.size() + 1;
 	}
 
-	@SuppressWarnings("CollectionDeclaredAsConcreteClass")
 	@NotNull
 	@Override
 	public ArrayList<? super Object> toArrayList()
