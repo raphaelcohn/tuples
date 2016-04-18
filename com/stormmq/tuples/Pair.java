@@ -22,6 +22,7 @@
 
 package com.stormmq.tuples;
 
+import com.stormmq.string.AbstractToString;
 import org.jetbrains.annotations.*;
 
 import java.util.*;
@@ -29,6 +30,7 @@ import java.util.Map.Entry;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
+import static com.stormmq.string.AbstractToString.toStringAsTuple;
 import static com.stormmq.string.Formatting.format;
 
 public class Pair<A, B> extends AbstractList<Object> implements Entry<A, B>
@@ -58,6 +60,12 @@ public class Pair<A, B> extends AbstractList<Object> implements Entry<A, B>
 	public <R> Supplier<R> curry(@NotNull final BiFunction<A, B, R> biFunction)
 	{
 		return () -> biFunction.apply(a, b);
+	}
+
+	@Override
+	public final String toString()
+	{
+		return toStringAsTuple(this, toArray());
 	}
 
 	@Override
